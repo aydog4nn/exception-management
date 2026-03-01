@@ -2,6 +2,9 @@ package com.ahmetaydo.service.impl;
 
 import com.ahmetaydo.dto.DtoDepartment;
 import com.ahmetaydo.dto.DtoEmployee;
+import com.ahmetaydo.exception.BaseException;
+import com.ahmetaydo.exception.ErrorMessage;
+import com.ahmetaydo.exception.MessageType;
 import com.ahmetaydo.model.Department;
 import com.ahmetaydo.model.Employee;
 import com.ahmetaydo.repository.EmployeeRepository;
@@ -26,7 +29,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         Optional<Employee> optional = employeeRepository.findById(id);
         if (optional.isEmpty()) {
-            return null;
+            throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXIST,id.toString()));
         }
         Employee employee = optional.get();
         Department department = employee.getDepartment();
