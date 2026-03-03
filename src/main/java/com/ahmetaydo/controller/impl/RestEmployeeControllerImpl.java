@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/api/employee")
-public class RestEmployeeControllerImpl implements RestEmployeeController {
+public class RestEmployeeControllerImpl extends RestBaseController implements RestEmployeeController {
 
     @Autowired
     private EmployeeServiceImpl employeeService;
@@ -20,6 +20,6 @@ public class RestEmployeeControllerImpl implements RestEmployeeController {
     @GetMapping("/list/{id}")
     @Override
     public DtoEmployee findEmployeeById(@PathVariable Long id) {
-        return employeeService.findEmployeeById(id);
+        return ok(employeeService.findEmployeeById(id)).getData();
     }
 }
